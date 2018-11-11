@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SensiBle</id>
+    <version>1.0.0</version>
+    <title>SensiEDGE BLE</title>
+    <authors>https://www.sensiedge.com</authors>
+    <owners>https://www.sensiedge.com</owners>
+    <licenseUrl>https://github.com/SensiEDGE/SensiBleWindows/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SensiEDGE/SensiBleWindows</projectUrl>
+    <iconUrl>https://static.wixstatic.com/media/19c426_3aa67ff0b341449bac9512415c22f580~mv2.png/v1/fill/w_146,h_40,al_c,q_80,usm_0.66_1.00_0.01/19c426_3aa67ff0b341449bac9512415c22f580~mv2.webp</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Dll for communication with SensiEDGE Development Board</description>
+    <releaseNotes>BLE functionality for communication</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Sensi SensiEDGE SensiBLE</tags>
+  </metadata>
+</package>

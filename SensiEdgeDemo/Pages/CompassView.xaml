@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="SensiEdgeDemo.Pages.CompassView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:domain="clr-namespace:SensiEdgeDemo.Domain"
+             xmlns:local="clr-namespace:SensiEdgeDemo.Pages"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <domain:DegreeConverter x:Key="DegreeConverter" />
+            <domain:CompassConverter x:Key="CompassConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Viewbox Grid.Row="0">
+            <Canvas x:Name="can" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200">
+                <Image Width="200" Height="200">
+                    <Image.Source>
+                        <DrawingImage >
+                            <DrawingImage.Drawing>
+                                <DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                                    <DrawingGroup x:Name="DrawingLayer">
+                                        <DrawingGroup.ClipGeometry>
+                                            <RectangleGeometry Rect="0,0,512.00045,512.00045" />
+                                        </DrawingGroup.ClipGeometry>
+                                        <GeometryDrawing>
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="#00FFFFFF" Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,512.00045,512.00045" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <DrawingGroup x:Name="layer1" Opacity="1" Transform="1,0,0,1,0,-488">
+                                            <GeometryDrawing x:Name="path3218">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.84134156" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M385.4416,743.33061C385.4416,810.77906 330.70053,865.51978 263.25242,865.51978 195.80434,865.51978 141.06326,810.77906 141.06326,743.33061 141.06326,675.88224 195.80434,621.1415 263.25242,621.1415 330.70053,621.1415 385.4416,675.88224 385.4416,743.33061z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path3216">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.84134156" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M350.11864,743.33061C350.11864,791.28079 311.20233,830.19683 263.25242,830.19683 215.30255,830.19683 176.38622,791.28079 176.38622,743.33061 176.38622,695.3805 215.30255,656.46448 263.25242,656.46448 311.20233,656.46448 350.11864,695.3805 350.11864,743.33061z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4308">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M329.69524,582.92307L196.80963,903.73821" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4306">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M386.02328,620.56005L140.48158,866.10118" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4304">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M423.66032,676.88759L102.84455,809.77369" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4300">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M423.66032,809.77362L102.84455,676.88767" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4298">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M386.02328,866.10138L140.48158,620.55989" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path3116">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.92499393" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M329.69524,903.73829L196.80963,582.92301" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <DrawingGroup x:Name="g3195" Opacity="1" Transform="3.8869914,1.6100445,-1.6100445,3.8869914,-3521.8811,-3706.3599">
+                                                <GeometryDrawing x:Name="path3170">
+                                                    <GeometryDrawing.Brush>
+                                                        <SolidColorBrush Color="#FF000000" Opacity="1" Transform="0,0.2226953,-0.2226953,0,1363.2025,359.31805" />
+                                                    </GeometryDrawing.Brush>
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Transform="0,0.2226953,-0.2226953,0,1363.2025,359.31805" Figures="M1228.1852,665.24094L1205.9936,593.7395 1134.4922,571.54792 1205.9936,549.35633 1228.1852,477.85489 1250.3768,549.35632 1321.8782,571.54791 1250.3768,593.7395z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                                <GeometryDrawing x:Name="path3188" Brush="#FFFFFFFF">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Figures="M1235.2022,632.82912L1215.9968,632.82912 1231.2022,628.10989 M1235.9215,633.54836L1235.9215,652.75375 1231.2022,637.54836 M1236.6407,632.82912L1255.8461,632.82912 1240.6407,637.54836 M1235.9215,632.10989L1235.9215,612.90449 1240.6407,628.10989" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="g3199" Opacity="1" Transform="1.6100445,3.8869914,-3.8869914,1.6100445,733.16495,-5079.5692">
+                                                <GeometryDrawing x:Name="path3201">
+                                                    <GeometryDrawing.Brush>
+                                                        <SolidColorBrush Color="#FF000000" Opacity="1" Transform="0,0.2226953,-0.2226953,0,1363.2025,359.31805" />
+                                                    </GeometryDrawing.Brush>
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Transform="0,0.2226953,-0.2226953,0,1363.2025,359.31805" Figures="M1228.1852,665.24094L1205.9936,593.7395 1134.4922,571.54792 1205.9936,549.35633 1228.1852,477.85489 1250.3768,549.35632 1321.8782,571.54791 1250.3768,593.7395z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                                <GeometryDrawing x:Name="path3204" Brush="#FFFFFFFF">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Figures="M1235.2022,632.82912L1215.9968,632.82912 1231.2022,628.10989 M1235.9215,633.54836L1235.9215,652.75375 1231.2022,637.54836 M1236.6407,632.82912L1255.8461,632.82912 1240.6407,637.54836 M1235.9215,632.10989L1235.9215,612.90449 1240.6407,628.10989" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="g3162" Opacity="1" Transform="0,4.6156171,-4.6156171,0,3184.1492,-4726.7312">
+                                                <GeometryDrawing x:Name="path3164">
+                                                    <GeometryDrawing.Brush>
+                                                        <SolidColorBrush Color="#FF000000" Opacity="1" Transform="0.2007868,0.2007868,-0.2007868,0.2007868,1053.2763,271.46646" />
+                                                    </GeometryDrawing.Brush>
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Transform="0.2007868,0.2007868,-0.2007868,0.2007868,1053.2763,271.46646" Figures="M1228.1852,665.24094L1214.9745,584.75862 1134.4922,571.54792 1214.9745,558.3372 1228.1852,477.85489 1241.3959,558.3372 1321.8782,571.54791 1241.3959,584.75862z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                                <GeometryDrawing x:Name="path3166" Brush="#FFFFFFFF">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Figures="M1180.2011,632.82919L1185.051,632.89859 1167.6759,650.27375 1180.2011,632.8292z M1185.1205,637.74858L1185.1895,632.89861 1202.5647,650.27376 1185.1202,637.74858z M1190.0398,632.82922L1185.1898,632.75982 1202.565,615.38465 1190.0398,632.82923z M1185.1204,627.90983L1185.0514,632.7598 1167.6763,615.38466 1185.1208,627.90983z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="g3108" Opacity="1" Transform="4.2000347,4.2000347,-4.2000347,4.2000347,-2056.3901,-6892.1208">
+                                                <GeometryDrawing x:Name="path3104">
+                                                    <GeometryDrawing.Brush>
+                                                        <SolidColorBrush Color="#FF000000" Opacity="1" Transform="0.21309255,0.21309255,-0.21309255,0.21309255,1045.1959,249.3194" />
+                                                    </GeometryDrawing.Brush>
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Transform="0.21309255,0.21309255,-0.21309255,0.21309255,1045.1959,249.3194" Figures="M1228.1852,665.24094L1214.9745,584.75862 1134.4922,571.54792 1214.9745,558.3372 1228.1852,477.85489 1241.3959,558.3372 1321.8782,571.54791 1241.3959,584.75862z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                                <GeometryDrawing x:Name="path3106" Brush="#FFFFFFFF">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="EvenOdd" Figures="M1180.2011,632.82919L1185.051,632.89859 1167.6759,650.27375 1180.2011,632.8292z M1185.1205,637.74858L1185.1895,632.89861 1202.5647,650.27376 1185.1202,637.74858z M1190.0398,632.82922L1185.1898,632.75982 1202.565,615.38465 1190.0398,632.82923z M1185.1204,627.90983L1185.0514,632.7598 1167.6763,615.38466 1185.1208,627.90983z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <GeometryDrawing x:Name="path4233">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.97745842" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M263.25273,546.97606C154.90674,546.97606 66.898112,634.98453 66.898112,743.33068 66.898112,851.67692 154.90674,939.68529 263.25273,939.68529 371.59875,939.68529 459.60626,851.67692 459.60626,743.33068 459.60626,634.98453 371.59875,546.97606 263.25273,546.97606z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path3026">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.90225983" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M263.2527,569.06675C359.48419,569.06675 437.5156,647.09907 437.5156,743.33068 437.5156,839.56238 359.48419,917.5946 263.2527,917.5946 167.02122,917.5946 88.988768,839.56238 88.988768,743.33068 88.988768,647.09907 167.02122,569.06675 263.2527,569.06675z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <DrawingGroup x:Name="text4269">
+                                                <GeometryDrawing Brush="White">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="Nonzero" Figures="M254.207763671875,513.386596679688L257.844940185547,513.386596679688 269.824310302734,532.156494140625C270.324829101563,532.935119628906,270.647399902344,533.468994140625,270.7919921875,533.758178710938L270.858734130859,533.758178710938C270.747497558594,533.068542480469,270.69189453125,531.895080566406,270.69189453125,530.23779296875L270.69189453125,513.386596679688 273.494842529297,513.386596679688 273.494842529297,537.311950683594 270.057861328125,537.311950683594 257.744842529297,518.241760253906C257.433410644531,517.763488769531,257.177581787109,517.262939453125,256.977355957031,516.740173339844L256.877258300781,516.740173339844C256.966247558594,517.251831054688,257.0107421875,518.347412109375,257.0107421875,520.026977539063L257.0107421875,537.311950683594 254.207763671875,537.311950683594 254.207763671875,513.386596679688z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="text4277">
+                                                <GeometryDrawing Brush="White">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="Nonzero" Figures="M471.263366699219,730.869201660156L483.409545898438,730.869201660156 483.409545898438,733.405212402344 474.066345214844,733.405212402344 474.066345214844,741.363647460938 482.708801269531,741.363647460938 482.708801269531,743.882995605469 474.066345214844,743.882995605469 474.066345214844,752.258544921875 483.943450927734,752.258544921875 483.943450927734,754.794555664063 471.263366699219,754.794555664063 471.263366699219,730.869201660156z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="text4281">
+                                                <GeometryDrawing Brush="White">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="Nonzero" Figures="M25.5822162628174,730.869201660156L28.6688194274902,730.869201660156 33.7575378417969,749.221984863281C33.9688720703125,749.989440917969,34.1023483276367,750.790344238281,34.1579627990723,751.62451171875L34.2413864135742,751.62451171875C34.2970008850098,751.035034179688,34.4694061279297,750.234191894531,34.7585983276367,749.221984863281L40.0475311279297,730.869201660156 42.7337112426758,730.869201660156 47.8057479858398,749.35546875C47.9837112426758,749.989440917969,48.1171875,750.734680175781,48.2061729431152,751.591186523438L48.2729110717773,751.591186523438C48.3173980712891,751.012756347656,48.4675598144531,750.245300292969,48.723388671875,749.288696289063L53.6118965148926,730.869201660156 56.6484451293945,730.869201660156 49.8912887573242,754.794555664063 46.6044769287109,754.794555664063 41.6825981140137,737.309387207031C41.4712600708008,736.564147949219,41.3433456420898,735.752197265625,41.2988586425781,734.873474121094L41.232120513916,734.873474121094C41.1653823852539,735.696533203125,41.0207862854004,736.497375488281,40.7983283996582,737.276000976563L35.8430824279785,754.794555664063 32.5896377563477,754.794555664063 25.5822162628174,730.869201660156z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <DrawingGroup x:Name="text4273">
+                                                <GeometryDrawing Brush="White">
+                                                    <GeometryDrawing.Geometry>
+                                                        <PathGeometry FillRule="Nonzero" Figures="M264.063110351563,948.880065917969C266.421173095703,948.880065917969,268.1396484375,949.163696289063,269.218566894531,949.73095703125L269.218566894531,952.88427734375C267.805969238281,951.905456542969 265.992950439453,951.416076660156 263.779479980469,951.416076660156 263.167724609375,951.416076660156 262.555969238281,951.480041503906 261.944213867188,951.607971191406 261.332458496094,951.73583984375 260.787414550781,951.944396972656 260.309143066406,952.233581542969 259.830871582031,952.522827148438 259.441558837891,952.895385742188 259.141235351563,953.351440429688 258.840911865234,953.807495117188 258.690765380859,954.363647460938 258.690765380859,955.019897460938 258.690765380859,955.631652832031 258.804779052734,956.159973144531 259.032806396484,956.604919433594 259.260803222656,957.0498046875 259.597290039063,957.455810546875 260.042205810547,957.822875976563 260.487121582031,958.18994140625 261.029357910156,958.545837402344 261.668914794922,958.890625 262.308471679688,959.235473632813 263.045379638672,959.613647460938 263.879577636719,960.025207519531 264.736053466797,960.447875976563 265.548034667969,960.892761230469 266.315490722656,961.359924316406 267.082977294922,961.827087402344 267.755920410156,962.344299316406 268.334320068359,962.911560058594 268.912689208984,963.478820800781 269.371520996094,964.107299804688 269.710754394531,964.796936035156 270.050018310547,965.486511230469 270.219635009766,966.276245117188 270.219635009766,967.166076660156 270.219635009766,968.345092773438 269.988830566406,969.343383789063 269.527252197266,970.160949707031 269.065643310547,970.978454589844 268.442749023438,971.64306640625 267.658599853516,972.154724121094 266.874420166016,972.666320800781 265.970703125,973.036193847656 264.947387695313,973.264221191406 263.924072265625,973.492248535156 262.845153808594,973.606262207031 261.710632324219,973.606262207031 261.332458496094,973.606262207031 260.865295410156,973.575622558594 260.309143066406,973.514465332031 259.752990722656,973.453308105469 259.185729980469,973.364318847656 258.607330322266,973.247497558594 258.028961181641,973.130737304688 257.481140136719,972.986145019531 256.963928222656,972.813720703125 256.446716308594,972.641296386719 256.032379150391,972.449462890625 255.720947265625,972.238098144531L255.720947265625,968.934631347656C256.09912109375,969.268310546875 256.552398681641,969.568603515625 257.080718994141,969.835571289063 257.609069824219,970.1025390625 258.165222167969,970.327758789063 258.749145507813,970.511291503906 259.333099365234,970.69482421875 259.919830322266,970.836608886719 260.509368896484,970.936767578125 261.098876953125,971.036865234375 261.643890380859,971.0869140625 262.144409179688,971.0869140625 263.868469238281,971.0869140625 265.155944824219,970.76708984375 266.0068359375,970.127563476563 266.857757568359,969.487976074219 267.283203125,968.567565917969 267.283203125,967.366271972656 267.283203125,966.72119140625 267.141387939453,966.159484863281 266.857757568359,965.68115234375 266.574096679688,965.202880859375 266.182037353516,964.766296386719 265.681488037109,964.371459960938 265.180969238281,963.976623535156 264.588684082031,963.598388671875 263.904632568359,963.236938476563 263.220550537109,962.875427246094 262.483673095703,962.494445800781 261.693939208984,962.094055175781 260.859741210938,961.67138671875 260.081115722656,961.2431640625 259.358123779297,960.809326171875 258.635162353516,960.375549316406 258.006713867188,959.897277832031 257.472808837891,959.37451171875 256.938903808594,958.851745605469 256.519012451172,958.259399414063 256.213134765625,957.597595214844 255.907257080078,956.935791015625 255.754318237305,956.159973144531 255.754318237305,955.270141601563 255.754318237305,954.180114746094 255.993469238281,953.231872558594 256.471740722656,952.425476074219 256.950042724609,951.619079589844 257.578460693359,950.954467773438 258.357086181641,950.431701660156 259.135681152344,949.908935546875 260.022735595703,949.519592285156 261.018218994141,949.263793945313 262.013732910156,949.007995605469 263.028686523438,948.880065917969 264.063110351563,948.880065917969z" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                            <GeometryDrawing x:Name="path4318" Brush="White">
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M459.08716,743.33068L448.53075,747.45345 437.97432,743.33068 448.53075,739.2079z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4320" Brush="White">
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M88.52706,743.33068L77.970643,747.45345 67.41422,743.33068 77.970643,739.2079z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4322" Brush="White">
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M263.25241,917.97615L267.37519,928.53256 263.25241,939.08899 259.12964,928.53256z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing x:Name="path4324" Brush="White">
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry FillRule="EvenOdd" Figures="M263.25219,568.63946L259.12941,558.08305 263.25219,547.52662 267.37496,558.08305z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingGroup>
+                                </DrawingGroup>
+
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </Image.Source>
+                </Image>
+                <Polygon Fill="red" Points="15,100 25,45 35,100" x:Name="p1" Canvas.Left="78">
+                    <Polygon.RenderTransform>
+                        <RotateTransform Angle="{Binding Compass.Angle, Converter={StaticResource DegreeConverter}}" CenterX="25" CenterY="100"></RotateTransform>
+                    </Polygon.RenderTransform>
+                </Polygon>
+                <Polygon Fill="Blue" Points="15,100 25,155 35,100" x:Name="p2" Canvas.Left="78">
+                    <Polygon.RenderTransform>
+                        <RotateTransform Angle="{Binding Compass.Angle, Converter={StaticResource DegreeConverter}}" CenterX="25" CenterY="100"></RotateTransform>
+                    </Polygon.RenderTransform>
+                </Polygon>
+            </Canvas>
+        </Viewbox>
+        <StackPanel Grid.Row="1">
+            <TextBlock Width="100" Margin="0,25" Text="{Binding Compass.Angle, Converter={StaticResource CompassConverter}}" TextAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
