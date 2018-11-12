@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SensiEdgeDemo.Demo
 {
-    public class DemoUltraViolet : INext<UltraViolet>
+    internal class DemoUltraViolet : INext<UltraViolet>
     {
         public UltraViolet Next()
         {

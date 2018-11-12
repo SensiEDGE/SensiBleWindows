@@ -24,5 +24,6 @@ namespace SensiEdge.Device
         public Guid LEDStateConfigID => new Guid("00000002-000f-11e1-ac36-0002a5d5c51b");
         public Guid ProximityID => Guid.Empty;
         public Guid UltraVioletID => Guid.Empty;
+        public Guid SmokeSensorID => Guid.Empty;
     }
 }

@@ -27,9 +27,12 @@ namespace SensiEdgeDemo.Demo
 
         public ISource<Proximity> ProximitySource => new DemoDataSource<Proximity>(new DemoProximity());
         public ISource<UltraViolet> UltraVioletSource => new DemoDataSource<UltraViolet>(new DemoUltraViolet());
+        public ISource<SmokeSensor> SmokeSensorSource => new DemoDataSource<SmokeSensor>(new DemoSmokeSensor());
 
         public BluetoothLEDevice Ble => throw new NotSupportedException();
         public IModel Model => throw new NotSupportedException();
+
+
         public event OnDisconnect OnDisconnect;
     }
 }

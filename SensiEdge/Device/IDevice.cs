@@ -25,5 +25,6 @@ namespace SensiEdge.Device
         ISource<LEDStateConfig> LEDStateConfigSource { get; }
         ISource<Proximity> ProximitySource { get; }
         ISource<UltraViolet> UltraVioletSource { get; }
+        ISource<SmokeSensor> SmokeSensorSource { get; }
     }
 }

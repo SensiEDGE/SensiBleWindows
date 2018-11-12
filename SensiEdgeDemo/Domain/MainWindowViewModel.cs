@@ -118,6 +118,11 @@ namespace SensiEdgeDemo.Domain
                     {
                         DataContext = new UltraVioletViewModel(device.UltraVioletSource)
                     }));
+                if (device.SmokeSensorSource.IsAvailable)
+                    DemoItems.Add(new DemoItem("Smoke Sensor", new SmokeSensorView()
+                    {
+                        DataContext = new SmokeSensorViewModel(device.SmokeSensorSource)
+                    }));
                 DemoItems.Add(new DemoItem("Cloud", new AzureCloudView()
                 {
                     DataContext = new AzureCloudViewModel(device)

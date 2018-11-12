@@ -89,7 +89,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Builds
 
-* [Version 1.0.0](https://drive.google.com/file/d/19CtDodyEVdiq3oRb-uPHUWvvVHt03kgi/view?usp=sharing)
+* [Version 1.1.0](https://drive.google.com/file/d/1w0iwY89-oqBvyxjW6swtAOu4lVATaLov/view?usp=sharing)
 
 ## Authors
 

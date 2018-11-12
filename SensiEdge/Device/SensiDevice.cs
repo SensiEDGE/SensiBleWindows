@@ -26,6 +26,7 @@ namespace SensiEdge.Device
         private DataSource<LEDStateConfig> ledStateConfigSource;
         private DataSource<Proximity> proximitySource;
         private DataSource<UltraViolet> ultraVioletSource;
+        private DataSource<SmokeSensor> smokeSensorSource;
 
         public event OnDisconnect OnDisconnect;
 
@@ -62,56 +63,32 @@ namespace SensiEdge.Device
             service = services.Services[0];
             //Enviromental
             environmentalSource = new DataSource<Environmental>(service, model.EnvironmentalID);
-            environmentalSource.BeforeSubscribe += () => current?.Unsubscribe();
-            environmentalSource.AfterUnsubscribe += () => current = environmentalSource;
             //AccGyroMag
             accGyroMagSource = new DataSource<AccGyroMag>(service, model.AccGyroMagID);
-            accGyroMagSource.BeforeSubscribe += () => current?.Unsubscribe();
-            accGyroMagSource.AfterUnsubscribe += () => current = accGyroMagSource;
             //AudioLevel
             audioLevelSource = new DataSource<AudioLevel>(service, model.AudioLevelID);
-            audioLevelSource.BeforeSubscribe += () => current?.Unsubscribe();
-            audioLevelSource.AfterUnsubscribe += () => current = audioLevelSource;
             //LedState
             ledStateSource = new DataSource<LEDState>(service, model.LEDStateID);
-            ledStateSource.BeforeSubscribe += () => current?.Unsubscribe();
-            ledStateSource.AfterUnsubscribe += () => current = ledStateSource;
             //LightSensor
             lightSensorSource = new DataSource<LightSensor>(service, model.LightSensorID);
-            lightSensorSource.BeforeSubscribe += () => current?.Unsubscribe();
-            lightSensorSource.AfterUnsubscribe += () => current = lightSensorSource;
             //BatteryStatus
             batteryStatusSource = new DataSource<BatterySatus>(service, model.BatteryStatusID);
-            batteryStatusSource.BeforeSubscribe += () => current?.Unsubscribe();
-            batteryStatusSource.AfterUnsubscribe += () => current = batteryStatusSource;
             //Orientation
             orientationSource = new DataSource<Orientation>(service, model.OrientationID);
-            orientationSource.BeforeSubscribe += () => current?.Unsubscribe();
-            orientationSource.AfterUnsubscribe += () => current = orientationSource;
             //Compass
             compassSource = new DataSource<Compass>(service, model.CompassID);
-            compassSource.BeforeSubscribe += () => current?.Unsubscribe();
-            compassSource.AfterUnsubscribe += () => current = compassSource;
             //ActivityRecognition
             activityRecognitionSource = new DataSource<ActivityRecognition>(service, model.ActivityRecognitionID);
-            activityRecognitionSource.BeforeSubscribe += () => current?.Unsubscribe();
-            activityRecognitionSource.AfterUnsubscribe += () => current = activityRecognitionSource;
             //CarryPosition
             carryPositionSource = new DataSource<CarryPosition>(service, model.CarryPositionID);
-            carryPositionSource.BeforeSubscribe += () => current?.Unsubscribe();
-            carryPositionSource.AfterUnsubscribe += () => current = carryPositionSource;
             //GestureRecognition
             gestureRecognitionSource = new DataSource<GestureRecognition>(service, model.GestureRecognitionID);
-            gestureRecognitionSource.BeforeSubscribe += () => current?.Unsubscribe();
-            gestureRecognitionSource.AfterUnsubscribe += () => current = gestureRecognitionSource;
             //Proximity
             proximitySource = new DataSource<Proximity>(service, model.ProximityID);
-            proximitySource.BeforeSubscribe += () => current?.Unsubscribe();
-            proximitySource.AfterUnsubscribe += () => current = proximitySource;
             //UltraViolet
             ultraVioletSource = new DataSource<UltraViolet>(service, model.UltraVioletID);
-            ultraVioletSource.BeforeSubscribe += () => current?.Unsubscribe();
-            ultraVioletSource.AfterUnsubscribe += () => current = ultraVioletSource;
+            //SmokeSensor
+            smokeSensorSource = new DataSource<SmokeSensor>(service, model.SmokeSensorID);
         }
 
         public async Task InitConfigAsync()
@@ -155,6 +132,8 @@ namespace SensiEdge.Device
         public ISource<Proximity> ProximitySource => proximitySource;
 
         public ISource<UltraViolet> UltraVioletSource => ultraVioletSource;
+
+        public ISource<SmokeSensor> SmokeSensorSource => smokeSensorSource;
 
         public BluetoothLEDevice Ble => ble;
 

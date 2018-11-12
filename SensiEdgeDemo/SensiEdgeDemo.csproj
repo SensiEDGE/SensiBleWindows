@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bogus, Version=23.0.3.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
       <HintPath>..\packages\Bogus.23.0.3\lib\net40\Bogus.dll</HintPath>
@@ -91,9 +94,6 @@
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
@@ -291,6 +291,7 @@
     <Compile Include="Demo\DemoOrientation.cs" />
     <Compile Include="Demo\DemoProximity.cs" />
     <Compile Include="Demo\DemoSensiEdge.cs" />
+    <Compile Include="Demo\DemoSmokeSensor.cs" />
     <Compile Include="Demo\DemoUltraViolet.cs" />
     <Compile Include="Domain\AccGyroMagViewModel.cs" />
     <Compile Include="Domain\AudioLevelViewModel.cs" />
@@ -307,6 +308,7 @@
     <Compile Include="Domain\OrientationViewModel.cs" />
     <Compile Include="Domain\ProximityViewModel.cs" />
     <Compile Include="Domain\SelectableViewModel.cs" />
+    <Compile Include="Domain\SmokeSensorViewModel.cs" />
     <Compile Include="Domain\UltraVioletViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -376,6 +378,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SmokeSensorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\UltraVioletView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -434,6 +440,9 @@
     <Compile Include="Pages\OrientationView.xaml.cs">
       <DependentUpon>OrientationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SmokeSensorView.xaml.cs">
+      <DependentUpon>SmokeSensorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UltraVioletView.xaml.cs">
       <DependentUpon>UltraVioletView.xaml</DependentUpon>
     </Compile>
@@ -444,33 +453,24 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\ConnectToCloudSettings.Designer.cs">
+    <Compile Include="Properties\AzureSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>ConnectToCloudSettings.settings</DependentUpon>
+      <DependentUpon>AzureSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\ConnectToCloudSettings.settings">
+    <None Include="Properties\AzureSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>ConnectToCloudSettings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <LastGenOutput>AzureSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +482,8 @@
       <Name>SensiEdge</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="logo.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

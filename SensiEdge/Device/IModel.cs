@@ -23,5 +23,6 @@ namespace SensiEdge.Device
         Guid LEDStateConfigID { get; }
         Guid ProximityID { get; }
         Guid UltraVioletID { get; }
+        Guid SmokeSensorID { get; }
     }
 }
