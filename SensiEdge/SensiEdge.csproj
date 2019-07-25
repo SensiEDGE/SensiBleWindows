@@ -52,9 +52,7 @@
     <Compile Include="Data\SmokeSensor.cs" />
     <Compile Include="Data\UltraViolet.cs" />
     <Compile Include="Data\Vector3D.cs" />
-    <Compile Include="DeviceFactory.cs" />
     <Compile Include="Device\DataSource.cs" />
-    <Compile Include="Data\AccelerometerEvents.cs" />
     <Compile Include="Data\AccGyroMag.cs" />
     <Compile Include="Data\ActivityRecognition.cs" />
     <Compile Include="Data\AudioLevel.cs" />
@@ -62,17 +60,23 @@
     <Compile Include="Data\CarryPosition.cs" />
     <Compile Include="Data\Compass.cs" />
     <Compile Include="Data\Environmental.cs" />
+    <Compile Include="Device\DeviceModel.cs" />
     <Compile Include="Device\IDevice.cs" />
     <Compile Include="Device\ISource.cs" />
-    <Compile Include="Device\ModelB.cs" />
+    <Compile Include="Device\SelectedDevice.cs" />
     <Compile Include="Device\SensiDevice.cs" />
     <Compile Include="Data\GestureRecognition.cs" />
     <Compile Include="Data\LEDState.cs" />
     <Compile Include="Data\LightSensor.cs" />
     <Compile Include="Data\Orientation.cs" />
+    <Compile Include="Device\Dictionaries.cs" />
+    <Compile Include="Device\SensorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Device\IModel.cs" />
-    <Compile Include="Device\ModelA.cs" />
+    <Compile Include="Properties\ConectedDevice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ConectedDevice.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="nuget.exe" />
@@ -80,6 +84,10 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\ConectedDevice.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ConectedDevice.Designer.cs</LastGenOutput>
+    </None>
     <None Include="SensiEdge.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

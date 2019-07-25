@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using SensiEdge.Data;
 using SensiEdge.Device;
 
 namespace SensiEdgeDemo.Domain
@@ -29,16 +30,83 @@ namespace SensiEdgeDemo.Domain
     public class EnviromentalViewModel : INotifyPropertyChanged
     {
         private ISource<Environmental> Source { get; set; }
+        private Visibility pressureVisibility;
+        public Visibility PressureVisibility
+        {
+            get { return pressureVisibility; }
+            set
+            {
+                this.MutateVerbose(ref pressureVisibility, value, RaisePropertyChanged());
+            }
+        }
+        private Visibility humidityVisibility;
+        public Visibility HumidityVisibility
+        {
+            get { return humidityVisibility; }
+            set
+            {
+                this.MutateVerbose(ref humidityVisibility, value, RaisePropertyChanged());
+            }
+        }
+        private Visibility temperatureVisibility;
+        public Visibility TemperatureVisibility
+        {
+            get { return temperatureVisibility; }
+            set
+            {
+                this.MutateVerbose(ref temperatureVisibility, value, RaisePropertyChanged());
+            }
+        }
         private Environmental environmental;
         public Environmental Environmental
         {
             get { return environmental; }
-            set { this.MutateVerbose(ref environmental, value, RaisePropertyChanged()); }
+            set
+            {
+                this.MutateVerbose(ref environmental, value, RaisePropertyChanged());
+                if(value.Pressure==0)
+                {
+                    if(pressureVisibility!=Visibility.Collapsed)
+                    {
+                        PressureVisibility = Visibility.Collapsed;
+                    }                    
+                }
+                else
+                {
+                    PressureVisibility = Visibility.Visible;
+                }
+
+                if (value.Humidity == 0)
+                {
+                    if (humidityVisibility != Visibility.Collapsed)
+                    {
+                        HumidityVisibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    HumidityVisibility = Visibility.Visible;
+                }
+
+                if (value.Temperature == 0)
+                {
+                    if (temperatureVisibility != Visibility.Collapsed)
+                    {
+                        TemperatureVisibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    TemperatureVisibility = Visibility.Visible;
+                }
+            }
         }
         public EnviromentalViewModel(ISource<Environmental> source)
         {
             Source = source;
-            Source.OnChange += (Environmental value) => Environmental = value;
+            PressureVisibility = Visibility.Collapsed;
+            HumidityVisibility = Visibility.Collapsed;
+            TemperatureVisibility = Visibility.Collapsed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,12 +114,16 @@ namespace SensiEdgeDemo.Domain
         internal void Activate()
         {
             Source.Enable();
+            Source.OnChange += OnChange;
         }
 
         internal void Deactivate()
         {
             Source.Disable();
+            Source.OnChange -= OnChange;
         }
+
+        private void OnChange (Environmental value) => Environmental = value;
         private Action<PropertyChangedEventArgs> RaisePropertyChanged()
         {
             return args => PropertyChanged?.Invoke(this, args);

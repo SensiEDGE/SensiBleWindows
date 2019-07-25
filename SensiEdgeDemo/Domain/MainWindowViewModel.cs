@@ -7,6 +7,8 @@ using System.ComponentModel;
 using SensiEdge.Data;
 using System.Windows.Input;
 using SensiEdgeDemo.Demo;
+using Windows.Devices.Bluetooth;
+using System.Threading;
 
 namespace SensiEdgeDemo.Domain
 {
@@ -22,6 +24,7 @@ namespace SensiEdgeDemo.Domain
     }
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public DevicesView Window { get; set; }
         private IDevice Device { get; set; }
         private IList<DemoItem> demoItems;
         public event DeviceChanged DeviceChanged = null;
@@ -38,96 +41,117 @@ namespace SensiEdgeDemo.Domain
         public MainWindowViewModel()
         {
             DemoMode = new DemoCommand() { Executer = () => SetDevice(new DemoSensiEdge()) };
-            FindMode = new DemoCommand() { Executer = () => SetDevice(null) };
+            FindMode = new DemoCommand() { Executer = () => { SetDevice(null); SelectedDevice.SetBluetoothAddress(ulong.MaxValue); } };
             SetDevice(null);
         }
 
-        private async void SetDeviceFromIdAsync(string Id)
+        private async void SetDeviceByAdddressAsync(ulong bluetoothAddress)
         {
             try
             {
-                Device = await DeviceFactory.Get(Id);
-                SetDevice(Device);
+                Device?.Disconnect();
+                if (bluetoothAddress != ulong.MaxValue)
+                {
+                    Device = new SensiDevice(bluetoothAddress);
+                    await Device.Connect();
+                    Device.OnDisconnect += DisconectDevice;
+                    SetDevice(Device);
+                }
             }
-            catch { }
+            catch (Exception ex) { }
+        }
+
+        private void DisconectDevice()
+        {
+            //TODO: check status
+            App.Current.Dispatcher.Invoke(() => { SetDevice(null); });
         }
 
         private void SetDevice(IDevice device)
         {
+            var demoItems = new List<DemoItem>();
             if (device is null)
             {
-                DemoItems = new List<DemoItem>()
+                Device?.Disconnect();
+                demoItems.Add(new DemoItem("Find Devices", new FindDevicesView()
                 {
-                    new DemoItem("Find Devices", new FindDevicesView(){
-                        DataContext = new FindDevicesViewModel(new Action<string>((string id) => {
-                            SetDeviceFromIdAsync(id);
-                        }))
-                    })
-                };
+                    DataContext = new FindDevicesViewModel(new Action<ulong>((ulong bluetoothAddress) =>
+                    {
+                        SetDeviceByAdddressAsync(bluetoothAddress);
+                    }))
+                }));
             }
             else
             {
-                DemoItems = new List<DemoItem>();
                 if (device.EnvironmentalSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Enviroment", new EnvironmentalView()
+                    demoItems.Add(new DemoItem("Enviroment", new EnvironmentalView()
                     {
                         DataContext = new EnviromentalViewModel(device.EnvironmentalSource)
                     }));
                 if (device.AccGyroMagSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Acc, Gyro and Mag", new AccGyroMagView()
+                    demoItems.Add(new DemoItem("Acc, Gyro and Mag", new AccGyroMagView()
                     {
                         DataContext = new AccGyroMagViewModel(device.AccGyroMagSource)
                     }));
                 if (device.AudioLevelSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Audio Level", new AudioLevelView()
+                    demoItems.Add(new DemoItem("Audio Level", new AudioLevelView()
                     {
                         DataContext = new AudioLevelViewModel(device.AudioLevelSource)
                     }));
                 if (device.LEDStateSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("LED State", new LedStateView()
+                    demoItems.Add(new DemoItem("LED State", new LedStateView()
                     {
                         DataContext = new LedStateViewModel(device.LEDStateSource, device.LEDStateConfigSource)
                     }));
                 if (device.LightSensorSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Light Sensor", new LightSensorView()
+                    demoItems.Add(new DemoItem("Light Sensor", new LightSensorView()
                     {
                         DataContext = new LightSensorViewModel(device.LightSensorSource)
                     }));
                 if (device.BatteryStatusSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Battery Status", new BatteryStatusView()
+                    demoItems.Add(new DemoItem("Battery Status", new BatteryStatusView()
                     {
                         DataContext = new BatteryStatusViewModel(device.BatteryStatusSource)
                     }));
                 if (device.OrientationSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Orientation", new OrientationView()
+                    demoItems.Add(new DemoItem("Orientation", new OrientationView()
                     {
                         DataContext = new OrientationViewModel(device.OrientationSource)
                     }));
                 if (device.CompassSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Compass", new CompassView()
+                    demoItems.Add(new DemoItem("Compass", new CompassView()
                     {
                         DataContext = new CompassViewModel(device.CompassSource)
                     }));
                 if (device.ProximitySource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Proximity", new ProximityView()
+                    demoItems.Add(new DemoItem("Proximity", new ProximityView()
                     {
                         DataContext = new ProximityViewModel(device.ProximitySource)
                     }));
                 if (device.UltraVioletSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Ultra Violet", new UltraVioletView()
+                    demoItems.Add(new DemoItem("Ultra Violet", new UltraVioletView()
                     {
                         DataContext = new UltraVioletViewModel(device.UltraVioletSource)
                     }));
                 if (device.SmokeSensorSource.IsAvailable)
-                    DemoItems.Add(new DemoItem("Smoke Sensor", new SmokeSensorView()
+                    demoItems.Add(new DemoItem("Smoke Sensor", new SmokeSensorView()
                     {
                         DataContext = new SmokeSensorViewModel(device.SmokeSensorSource)
                     }));
-                DemoItems.Add(new DemoItem("Cloud", new AzureCloudView()
+                demoItems.Add(new DemoItem("Azure cloud", new AzureCloudView()
                 {
                     DataContext = new AzureCloudViewModel(device)
                 }));
+                demoItems.Add(new DemoItem("Amazon cloud", new AmazonCloudView()
+                {
+                    DataContext = new AmazonCloudViewModel(device)
+                }));
+                demoItems.Add(new DemoItem("IBMWatsons cloud", new IBMWatsonCloudView()
+                {
+                    DataContext = new IBMWatsonsCloudViewModel(device)
+                }));
             }
+            DemoItems = demoItems;
             DeviceChanged?.Invoke();
         }
 

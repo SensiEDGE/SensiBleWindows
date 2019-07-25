@@ -15,6 +15,7 @@ namespace SensiEdge.Data
         {
             TimeStamp = BitConverter.ToUInt16(data, 0);
             Distance = BitConverter.ToUInt16(data, 2);
+            Distance &= 0x7FFF;
         }
 
         public byte[] ToSetValue() => throw new NotSupportedException();

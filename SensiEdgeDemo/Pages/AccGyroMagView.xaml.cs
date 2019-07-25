@@ -15,7 +15,6 @@ namespace SensiEdgeDemo.Pages
         public AccGyroMagView()
         {
             InitializeComponent();
-
         }
         public SeriesCollection SeriesCollection { get; set; }
 

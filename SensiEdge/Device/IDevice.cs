@@ -1,14 +1,18 @@
 ﻿using SensiEdge.Data;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace SensiEdge.Device
 {
     public delegate void OnDisconnect();
-    public interface IDevice
+    public interface IDevice : IDisposable
     {
         //Info
-        BluetoothLEDevice Ble { get; }
-        IModel Model { get; }
+        Task Connect();
+        void Disconnect();
         event OnDisconnect OnDisconnect;
         //Sources
         ISource<Environmental> EnvironmentalSource { get; }

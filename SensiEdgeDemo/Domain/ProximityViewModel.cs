@@ -14,7 +14,7 @@ namespace SensiEdgeDemo.Domain
 {
     public class ProximityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => $"Proximity: {System.Convert.ToInt32(value)} [cm]";
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => $"Proximity: {System.Convert.ToInt32(value)} [mm]";
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => DependencyProperty.UnsetValue;
     }
     public class ProximityViewModel : INotifyPropertyChanged

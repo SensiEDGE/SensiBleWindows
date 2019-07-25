@@ -1,142 +1,165 @@
 ﻿using System;
-using System.Threading.Tasks;
 using SensiEdge.Data;
 using Windows.Devices.Bluetooth;
+using Status = Windows.Devices.Bluetooth.BluetoothConnectionStatus;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SensiEdge.Device
 {
-    public class SensiDevice : IDevice, IDisposable
+    public class SensiDevice : IDevice
     {
-        private BluetoothLEDevice ble;
-        private GattDeviceService service;
-        private IModel model;
-        private ISubscribe current;
-        private DataSource<Environmental> environmentalSource;
-        private DataSource<AccGyroMag> accGyroMagSource;
-        private DataSource<AudioLevel> audioLevelSource;
-        private DataSource<LEDState> ledStateSource;
-        private DataSource<LightSensor> lightSensorSource;
-        private DataSource<BatterySatus> batteryStatusSource;
-        private DataSource<Orientation> orientationSource;
-        private DataSource<Compass> compassSource;
-        private DataSource<ActivityRecognition> activityRecognitionSource;
-        private DataSource<CarryPosition> carryPositionSource;
-        private DataSource<GestureRecognition> gestureRecognitionSource;
-        private DataSource<LEDStateConfig> ledStateConfigSource;
-        private DataSource<Proximity> proximitySource;
-        private DataSource<UltraViolet> ultraVioletSource;
-        private DataSource<SmokeSensor> smokeSensorSource;
+        private ulong BluetoothAddress { get; set; }
+        private BluetoothLEDevice Ble { get; set; }
+        #region sources
+        public ISource<Environmental> EnvironmentalSource { get; private set; } = new DataSource<Environmental>(null);
+        public ISource<AccGyroMag> AccGyroMagSource { get; private set; } = new DataSource<AccGyroMag>(null);
+        public ISource<AudioLevel> AudioLevelSource { get; private set; } = new DataSource<AudioLevel>(null);
+        public ISource<LEDState> LEDStateSource { get; private set; } = new DataSource<LEDState>(null);
+        public ISource<LightSensor> LightSensorSource { get; private set; } = new DataSource<LightSensor>(null);
+        public ISource<BatterySatus> BatteryStatusSource { get; private set; } = new DataSource<BatterySatus>(null);
+        public ISource<Orientation> OrientationSource { get; private set; } = new DataSource<Orientation>(null);
+        public ISource<Compass> CompassSource { get; private set; } = new DataSource<Compass>(null);
+        public ISource<ActivityRecognition> ActivityRecognitionSource { get; private set; } = new DataSource<ActivityRecognition>(null);
+        public ISource<CarryPosition> CarryPositionSource { get; private set; } = new DataSource<CarryPosition>(null);
+        public ISource<GestureRecognition> GestureRecognitionSource { get; private set; } = new DataSource<GestureRecognition>(null);
+        public ISource<LEDStateConfig> LEDStateConfigSource { get; private set; } = new DataSource<LEDStateConfig>(null);
+        public ISource<Proximity> ProximitySource { get; private set; } = new DataSource<Proximity>(null);
+        public ISource<UltraViolet> UltraVioletSource { get; private set; } = new DataSource<UltraViolet>(null);
+        public ISource<SmokeSensor> SmokeSensorSource { get; private set; } = new DataSource<SmokeSensor>(null);
+        #endregion
+
 
         public event OnDisconnect OnDisconnect;
 
-        public SensiDevice(BluetoothLEDevice ble, IModel model)
+        public SensiDevice(ulong bluetoothAddress)
         {
-            this.ble = ble;
-            this.model = model;
-            this.ble.ConnectionStatusChanged += Ble_ConnectionStatusChanged;
+            BluetoothAddress = bluetoothAddress;
         }
 
-        private void Ble_ConnectionStatusChanged(BluetoothLEDevice sender, object args)
+        public async Task Connect()
         {
-            if (sender.ConnectionStatus == BluetoothConnectionStatus.Disconnected)
+            Ble = await BluetoothLEDevice.FromBluetoothAddressAsync(BluetoothAddress);
+
+            if (Ble != null)
+            {
+                Ble.ConnectionStatusChanged += StatusChanged;
+                var servicesResult = await Ble.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+
+                var services = servicesResult.Services.ToList();
+                foreach (var service in services)
+                {
+                    var charsResult = await service.GetCharacteristicsAsync(BluetoothCacheMode.Uncached);
+
+                    var characteristics = charsResult.Characteristics.ToList();
+                    foreach (var characteristic in characteristics)
+                    {
+                        if (Dictionaries.Sensors.ContainsValue(characteristic.Uuid))
+                        {
+                            var kvp = Dictionaries.Sensors.First(x => x.Value == characteristic.Uuid);
+                            SetSource(kvp.Key, characteristic);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetSource(SensorType type, GattCharacteristic characteristic)
+        {
+            switch (type)
+            {
+                case SensorType.AccGyroMagID:
+                    AccGyroMagSource = new DataSource<AccGyroMag>(characteristic);
+                    break;
+                //case SensorType.AccelerometerEventsID: return new DataSource<>(characteristic);
+                case SensorType.AudioLevelID:
+                    AudioLevelSource = new DataSource<AudioLevel>(characteristic);
+                    break;
+                case SensorType.LEDStateID:
+                    LEDStateSource = new DataSource<LEDState>(characteristic);
+                    break;
+                case SensorType.EnvironmentalID:
+                    EnvironmentalSource = new DataSource<Environmental>(characteristic);
+                    break;
+                case SensorType.LightSensorID:
+                    LightSensorSource = new DataSource<LightSensor>(characteristic);
+                    break;
+                case SensorType.BatteryStatusID:
+                    BatteryStatusSource = new DataSource<BatterySatus>(characteristic);
+                    break;
+                case SensorType.OrientationID:
+                    OrientationSource = new DataSource<Orientation>(characteristic);
+                    break;
+                case SensorType.CompassID:
+                    CompassSource = new DataSource<Compass>(characteristic);
+                    break;
+                case SensorType.ActivityRecognitionID:
+                    ActivityRecognitionSource = new DataSource<ActivityRecognition>(characteristic);
+                    break;
+                case SensorType.CarryPositionID:
+                    CarryPositionSource = new DataSource<CarryPosition>(characteristic);
+                    break;
+                case SensorType.GestureRecognitionID:
+                    GestureRecognitionSource = new DataSource<GestureRecognition>(characteristic);
+                    break;
+                //case SensorType.BlueVoiceID: return new DataSource<>(characteristic);
+                //case SensorType.BlueVoiceSyncID: return new DataSource<>(characteristic);
+                case SensorType.LEDStateConfigID:
+                    LEDStateConfigSource = new DataSource<LEDStateConfig>(characteristic);
+                    break;
+                case SensorType.ProximityID:
+                    ProximitySource = new DataSource<Proximity>(characteristic);
+                    break;
+                case SensorType.UltraVioletID:
+                    UltraVioletSource = new DataSource<UltraViolet>(characteristic);
+                    break;
+                case SensorType.SmokeSensorID:
+                    SmokeSensorSource = new DataSource<SmokeSensor>(characteristic);
+                    break;
+            }
+        }
+
+        public void Disconnect()
+        {
+            if (Ble != null)
+            {
+                //unsubscribe
+                Ble.ConnectionStatusChanged -= StatusChanged;
+                //sources(services)
+                AudioLevelSource.Dispose();
+                AccGyroMagSource.Dispose();
+                ActivityRecognitionSource.Dispose();
+                BatteryStatusSource.Dispose();
+                CarryPositionSource.Dispose();
+                CompassSource.Dispose();
+                EnvironmentalSource.Dispose();
+                GestureRecognitionSource.Dispose();
+                LEDStateConfigSource.Dispose();
+                LightSensorSource.Dispose();
+                OrientationSource.Dispose();
+                ProximitySource.Dispose();
+                SmokeSensorSource.Dispose();
+                LEDStateConfigSource.Dispose();
+                UltraVioletSource.Dispose();
+                //device
+                Ble.Dispose();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Ble = null;
+            }
+        }
+
+
+        private void StatusChanged(BluetoothLEDevice sender, object args)
+        {
+            if (sender.ConnectionStatus == Status.Disconnected)
                 OnDisconnect?.Invoke();
         }
 
-        public async Task InitAsync()
+        public void Dispose()
         {
-            await InitSensorsAsync();
-            await InitConfigAsync();
+            throw new NotImplementedException();
         }
-
-        public static async Task<SensiDevice> Get(BluetoothLEDevice ble, IModel model)
-        {
-            var device = new SensiDevice(ble, model);
-            await device.InitAsync();
-            return device;
-        } 
-
-        public async Task InitSensorsAsync()
-        {
-            var services = await ble.GetGattServicesForUuidAsync(model.SensorsServiceID);
-            //TODO: check status
-            service = services.Services[0];
-            //Enviromental
-            environmentalSource = new DataSource<Environmental>(service, model.EnvironmentalID);
-            //AccGyroMag
-            accGyroMagSource = new DataSource<AccGyroMag>(service, model.AccGyroMagID);
-            //AudioLevel
-            audioLevelSource = new DataSource<AudioLevel>(service, model.AudioLevelID);
-            //LedState
-            ledStateSource = new DataSource<LEDState>(service, model.LEDStateID);
-            //LightSensor
-            lightSensorSource = new DataSource<LightSensor>(service, model.LightSensorID);
-            //BatteryStatus
-            batteryStatusSource = new DataSource<BatterySatus>(service, model.BatteryStatusID);
-            //Orientation
-            orientationSource = new DataSource<Orientation>(service, model.OrientationID);
-            //Compass
-            compassSource = new DataSource<Compass>(service, model.CompassID);
-            //ActivityRecognition
-            activityRecognitionSource = new DataSource<ActivityRecognition>(service, model.ActivityRecognitionID);
-            //CarryPosition
-            carryPositionSource = new DataSource<CarryPosition>(service, model.CarryPositionID);
-            //GestureRecognition
-            gestureRecognitionSource = new DataSource<GestureRecognition>(service, model.GestureRecognitionID);
-            //Proximity
-            proximitySource = new DataSource<Proximity>(service, model.ProximityID);
-            //UltraViolet
-            ultraVioletSource = new DataSource<UltraViolet>(service, model.UltraVioletID);
-            //SmokeSensor
-            smokeSensorSource = new DataSource<SmokeSensor>(service, model.SmokeSensorID);
-        }
-
-        public async Task InitConfigAsync()
-        {
-            var services = await ble.GetGattServicesForUuidAsync(model.ConfigServiceID);
-            //TODO: check status
-            service = services.Services[0];
-            //LedStateConfig
-            ledStateConfigSource = new DataSource<LEDStateConfig>(service, model.LEDStateConfigID);
-            ledStateConfigSource.BeforeSubscribe += () => current?.Unsubscribe();
-            ledStateConfigSource.AfterUnsubscribe += () => current = ledStateConfigSource;
-        }
-
-        public void Dispose() => ble?.Dispose();
-        
-
-        public ISource<Environmental> EnvironmentalSource => environmentalSource;
-
-        public ISource<AccGyroMag> AccGyroMagSource => accGyroMagSource;
-
-        public ISource<AudioLevel> AudioLevelSource => audioLevelSource;
-
-        public ISource<LEDState> LEDStateSource => ledStateSource;
-
-        public ISource<LightSensor> LightSensorSource => lightSensorSource;
-
-        public ISource<BatterySatus> BatteryStatusSource => batteryStatusSource;
-
-        public ISource<Orientation> OrientationSource => orientationSource;
-
-        public ISource<Compass> CompassSource => compassSource;
-
-        public ISource<ActivityRecognition> ActivityRecognitionSource => activityRecognitionSource;
-
-        public ISource<CarryPosition> CarryPositionSource => carryPositionSource;
-
-        public ISource<GestureRecognition> GestureRecognitionSource => gestureRecognitionSource;
-
-        public ISource<LEDStateConfig> LEDStateConfigSource => ledStateConfigSource;
-
-        public ISource<Proximity> ProximitySource => proximitySource;
-
-        public ISource<UltraViolet> UltraVioletSource => ultraVioletSource;
-
-        public ISource<SmokeSensor> SmokeSensorSource => smokeSensorSource;
-
-        public BluetoothLEDevice Ble => ble;
-
-        public IModel Model => model;
     }
 }

@@ -41,6 +41,6 @@ namespace SensiEdgeDemo.Pages
                 ((AzureCloudViewModel)DataContext).Deactivate();
             }
             Properties.AzureSettings.Default.Save();
-        }
+        }        
     }
 }

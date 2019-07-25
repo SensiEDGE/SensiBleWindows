@@ -24,7 +24,6 @@ namespace SensiEdgeDemo.Pages
         public OrientationView()
         {
             InitializeComponent();
-            this.Loaded += OrientationEstimation_Loaded;
         }
 
         private void OrientationEstimation_Loaded(object sender, RoutedEventArgs e)
@@ -36,7 +35,7 @@ namespace SensiEdgeDemo.Pages
             rubik.ZoomExtents();
         }
 
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        private void OrientationEstimation_Unloaded(object sender, RoutedEventArgs e)
         {
             if (DataContext is OrientationViewModel)
             {

@@ -31,6 +31,7 @@ namespace SensiEdgeDemo.Domain
     {
         private ISource<AccGyroMag> Source;
         private AccGyroMag accGyroMag;
+        public Func<double, string> Formatter { get; set; } = value => $"{value:F2}";
         public AccGyroMag AccGyroMag
         {
             get { return accGyroMag; }
@@ -86,40 +87,43 @@ namespace SensiEdgeDemo.Domain
         {
             try
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                lock (this)
                 {
-                    if (Values == null) return;
-                    var x = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Red, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
-                    var y = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Green, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
-                    var z = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Blue, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
-                    foreach (var kvp in Values)
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        switch (SelectedIndex)
+                        if (Values == null) return;
+                        var x = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Red, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
+                        var y = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Green, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
+                        var z = new LineSeries() { Fill = Brushes.Transparent, Foreground = Brushes.Blue, PointGeometry = null, Values = new ChartValues<ObservablePoint>() };
+                        foreach (var kvp in Values)
                         {
-                            case 0:
-                                x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.X)));
-                                y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.Y)));
-                                z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.Z)));
-                                break;
-                            case 1:
-                                x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.X)));
-                                y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.Y)));
-                                z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.Z)));
-                                break;
-                            case 2:
-                                x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.X)));
-                                y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.Y)));
-                                z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.Z)));
-                                break;
+                            switch (SelectedIndex)
+                            {
+                                case 0:
+                                    x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.X)));
+                                    y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.Y)));
+                                    z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Acc.Z)));
+                                    break;
+                                case 1:
+                                    x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.X)));
+                                    y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.Y)));
+                                    z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Gyro.Z)));
+                                    break;
+                                case 2:
+                                    x.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.X)));
+                                    y.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.Y)));
+                                    z.Values.Add(new ObservablePoint(kvp.Key, GetValue(kvp.Value.Mag.Z)));
+                                    break;
+                            }
                         }
-                    }
-                    if (Values.Count > 0)
-                    {
-                        AxisMin = Values[0].Key;
-                        AxisMax = Values[Values.Count - 1].Key;
-                    }
-                    SeriesCollection = new SeriesCollection() { x, y, z };
-                });
+                        if (Values.Count > 0)
+                        {
+                            AxisMin = Values[0].Key;
+                            AxisMax = Values[Values.Count - 1].Key;
+                        }
+                        SeriesCollection = new SeriesCollection() { x, y, z };
+                    });
+                }
             }
             catch { }
         }

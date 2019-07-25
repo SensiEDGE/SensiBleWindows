@@ -21,7 +21,11 @@
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
         <!--Here we disable tooltips and hovering to get a better performance-->
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" AnimationsSpeed="0:0:0.0001"/>
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" AnimationsSpeed="0:0:0.0001">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis LabelFormatter="{Binding Formatter}"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
         <StackPanel Grid.Row="1">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="15">
                 <ComboBox x:Name="SetVectorComboBox" Width="250" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
@@ -33,7 +37,7 @@
                 </ComboBox>                
             </StackPanel>
         </StackPanel>
-        <TextBlock Grid.Row="2" Margin="20,0" Text="{Binding SelectedVector, Converter={StaticResource AccGyroMagConverter}}" Width="250" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"></TextBlock>
+        <!--<TextBlock Grid.Row="2" Margin="20,0" Text="{Binding SelectedVector, Converter={StaticResource AccGyroMagConverter}}" Width="250" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"></TextBlock>-->
 
     </Grid>
 </UserControl>

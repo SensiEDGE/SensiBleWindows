@@ -12,10 +12,15 @@
         <azureProperties:AzureSettings x:Key="CloudSettings"></azureProperties:AzureSettings>        
     </UserControl.Resources>
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <StackPanel>
-                <TextBox TextAlignment="Center" VerticalAlignment="Center" x:Name="HostTextBox" Text="{Binding Source={StaticResource CloudSettings}, Path=Default.Host}" IsEnabled="{Binding HostEnabled}" Margin="5"/>
-            <TextBlock IsHitTestVisible="False" Text="Host" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" Foreground="DarkGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Right" Width="150" Text="Azure cloud" TextAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+            <StackPanel Margin="0 3">
+                <TextBox TextAlignment="Center" VerticalAlignment="Center" x:Name="HostTextBox" Text="{Binding Source={StaticResource CloudSettings}, Path=Default.Host}"/>
+            <TextBlock IsHitTestVisible="False" Text="Host" VerticalAlignment="Center" TextAlignment="Center" Foreground="DarkGray" Margin="0,0,0,5">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -28,9 +33,9 @@
                 </TextBlock.Style>
             </TextBlock>
             </StackPanel>
-            <StackPanel>
-                <TextBox TextAlignment="Center" VerticalAlignment="Center" x:Name="DeviceIdTextBox" Margin="5" Text="{Binding Source={StaticResource CloudSettings}, Path=Default.DeviceId}" IsEnabled="{Binding DeviceIdEnabled}"/>
-                <TextBlock IsHitTestVisible="False" Text="Device Id" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" Foreground="DarkGray">
+            <StackPanel Margin="0 3">
+                <TextBox TextAlignment="Center" VerticalAlignment="Center" x:Name="DeviceIdTextBox" Text="{Binding Source={StaticResource CloudSettings}, Path=Default.DeviceId}"/>
+                <TextBlock IsHitTestVisible="False" Text="Device Id" VerticalAlignment="Center" TextAlignment="Center" Foreground="DarkGray" Margin="0,0,0,5">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -43,45 +48,48 @@
                     </TextBlock.Style>
                 </TextBlock>
             </StackPanel>
-            <StackPanel>
-                <PasswordBox HorizontalContentAlignment="Center" VerticalAlignment="Center" x:Name="AccessKeyPasswordBox" Margin="5" IsEnabled="{Binding AccessKeyEnabled}" />
-                <TextBlock IsHitTestVisible="False" Text="Access key" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" Foreground="DarkGray">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=AccessKeyTextBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+            <StackPanel Margin="0 3">
+                <PasswordBox HorizontalContentAlignment="Center" VerticalAlignment="Center" x:Name="AccessKeyPasswordBox"  />                
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" Name="PressureBox" Width="100">                
-                <CheckBox Name="Pressure_CheckBox" Margin="0,0,5,0" IsEnabled="{Binding PressureEnabled}" IsChecked="{Binding PressureChecked}"></CheckBox>
+                <CheckBox Name="Pressure_CheckBox" Margin="0,0,5,0" IsChecked="{Binding PressureChecked}"></CheckBox>
                 <TextBlock Text="Pressure"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" Name="HumidityBox" Width="100">
-                <CheckBox Name="Humiditu_CheckBox" Margin="0,0,5,0" IsEnabled="{Binding HumidityEnabled}" IsChecked="{Binding HumidityChecked}"></CheckBox>
-                <TextBlock Text="Humiditu"></TextBlock>
+                <CheckBox Name="Humiditu_CheckBox" Margin="0,0,5,0" IsChecked="{Binding HumidityChecked}"></CheckBox>
+                <TextBlock Text="Humidity"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" Name="TemperatureBox" Width="100">
-                <CheckBox Name="Temperature_CheckBox" Margin="0,0,5,0" IsEnabled="{Binding TemperatureEnabled}" IsChecked="{Binding TemperatureChecked}"></CheckBox>
+                <CheckBox Name="Temperature_CheckBox" Margin="0,0,5,0" IsChecked="{Binding TemperatureChecked}"></CheckBox>
                 <TextBlock Text="Temperature"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" Name="AudioLevelBox" Width="100">
-                <CheckBox Name="AudioLevel_CheckBox" Margin="0,0,5,0" IsEnabled="{Binding AudioLevelEnabled}" IsChecked="{Binding AudioLevelChecked}"></CheckBox>
+                <CheckBox Name="AudioLevel_CheckBox" Margin="0,0,5,0" IsChecked="{Binding AudioLevelChecked}"></CheckBox>
                 <TextBlock Text="AudioLevel"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" Name="LightSensor_TB" Width="100">
-                <CheckBox Name="LightSensor_CheckBox" Margin="0,0,5,0" IsEnabled="{Binding LightSensorEnabled}" IsChecked="{Binding LightSensorChecked}"></CheckBox>
+                <CheckBox Name="LightSensor_CheckBox" Margin="0,0,5,0" IsChecked="{Binding LightSensorChecked}"></CheckBox>
                 <TextBlock Text="LightSensor"></TextBlock>
             </StackPanel>
-            <Button Content="{Binding CloudButtonContent}" Height="25" Command="{Binding Path=ClickCommand}" CommandParameter="{Binding ElementName=AccessKeyPasswordBox}" Name="CloudButton" >
+            <Button Content="{Binding CloudButtonContent}" Height="25" Command="{Binding Path=ClickCommand}" CommandParameter="{Binding ElementName=AccessKeyPasswordBox}" Name="CloudButton">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ErrorBox">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="1"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
             </Button>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="100" Width="500">
-                <TextBlock  Text="{Binding ErrorText}" TextWrapping="Wrap" Foreground="OrangeRed" Name="ErrorBox"></TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="50" Width="500">
+                <TextBlock  Text="{Binding ErrorText}" TextWrapping="Wrap" Foreground="OrangeRed" Name="ErrorBox">                 
+                </TextBlock>
             </ScrollViewer>
         </StackPanel>
     </Grid>

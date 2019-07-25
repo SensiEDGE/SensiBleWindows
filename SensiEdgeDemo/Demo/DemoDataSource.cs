@@ -44,5 +44,7 @@ namespace SensiEdgeDemo.Demo
         }
 
         public void SetValue(T value) { }
+
+        public void Dispose() { }
     }
 }

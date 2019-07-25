@@ -29,11 +29,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <materialDesign:PackIcon Kind="{Binding BatterySatus, Converter={StaticResource BatteryViewConverter} }" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        <materialDesign:PackIcon Kind="{Binding BatterySatus, Converter={StaticResource BatteryViewConverter} }" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" Width="auto" Height="auto" />
         <TextBlock Grid.Row="1" Text="{Binding BatterySatus, Converter={StaticResource BatteryStatusConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-        <materialDesign:PackIcon Grid.Column="1" Kind="BatteryPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        <materialDesign:PackIcon Grid.Column="1" Kind="BatteryPlus" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" Width="auto" Height="auto" />
         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding BatterySatus.Voltage, Converter={StaticResource VoltageConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-        <materialDesign:PackIcon Grid.Column="2" Kind="Atom" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        <materialDesign:PackIcon Grid.Column="2" Kind="Atom" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" Width="auto" Height="auto"/>
         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding BatterySatus.Current, Converter={StaticResource CurrentConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
     </Grid>
 </UserControl>

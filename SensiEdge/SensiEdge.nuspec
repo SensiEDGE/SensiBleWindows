@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SensiBle</id>
-    <version>1.0.0</version>
+    <version>1.3.2</version>
     <title>SensiEDGE BLE</title>
     <authors>https://www.sensiedge.com</authors>
     <owners>https://www.sensiedge.com</owners>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dll for communication with SensiEDGE Development Board</description>
     <releaseNotes>BLE functionality for communication</releaseNotes>
-    <copyright>Copyright 2018</copyright>
+    <copyright>Copyright 2019</copyright>
     <tags>Sensi SensiEDGE SensiBLE</tags>
   </metadata>
 </package>

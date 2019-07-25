@@ -20,7 +20,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <materialDesign:PackIcon Kind="{Binding LedState.State, Converter={StaticResource LedConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        <materialDesign:PackIcon Kind="{Binding LedState.State, Converter={StaticResource LedConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" Width="auto" Height="auto" />
         <Button x:Name="LedSwitch" Grid.Row="1" Style="{StaticResource MaterialDesignFloatingActionButton}" Command="{Binding  ElementName=LedSwitch, Path=DataContext.Switch}">
             <materialDesign:PackIcon Kind="Flattr" Height="24" Width="24" />
         </Button>

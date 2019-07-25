@@ -27,8 +27,7 @@ namespace SensiEdgeDemo.Domain
             float tmp = (float)(1 - (Math.Pow(X, 2) + Math.Pow(Y, 2) + Math.Pow(Z, 2)));
             float W = (float)Math.Sqrt(tmp);
 
-            return $"Quaternion: [X]{(X)}, [Y]{(Y)}, [Z]{(Z)}, [W]{W}";
-            // return $"Quaternion: [X]{GetAngle(value.Quat0.X)}, [Y]{GetAngle(value.Quat0.Y)}, [Z]{GetAngle(value.Quat0.Z)}";
+            return $"Quaternion: [X]{X:F3}, [Y]{Y:F3)}, [Z]{Z:F3}, [W]{W:F3}";
         }
 
         private double GetAngle(short value)

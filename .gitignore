@@ -297,3 +297,8 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Advanced Installer
+Install/SensiBLE-cache
+/Install/SensiBLE-cache/part3
+/Install/SensiBLE-cache

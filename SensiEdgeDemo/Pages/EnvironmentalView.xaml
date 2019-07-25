@@ -17,8 +17,8 @@
             <domain:TemperatureConverter x:Key="TemperatureConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -26,13 +26,18 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <materialDesign:PackIcon Kind="CloudDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
-        <TextBlock Grid.Row="2" Text="{Binding Environmental.Pressure, Converter={StaticResource PressureConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-        <materialDesign:PackIcon Grid.Column="1" Kind="WaterPercent" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        </Grid.RowDefinitions>-->
+        <StackPanel Visibility="{Binding PressureVisibility}">
+            <materialDesign:PackIcon Kind="CloudDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto" Width="auto" MaxHeight="200" />
+            <TextBlock Grid.Row="2" Text="{Binding Environmental.Pressure, Converter={StaticResource PressureConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+        </StackPanel>
+        <StackPanel Visibility="{Binding HumidityVisibility}">
+        <materialDesign:PackIcon Grid.Column="1" Kind="WaterPercent" VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto" Width="auto" MaxHeight="200" />
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Environmental.Humidity, Converter={StaticResource HumidityConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-        <materialDesign:PackIcon Grid.Column="2" Kind="ThermometerLines" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        </StackPanel>
+        <StackPanel Visibility="{Binding TemperatureVisibility}">
+            <materialDesign:PackIcon Grid.Column="2" Kind="ThermometerLines" VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto" Width="auto" MaxHeight="200" />
         <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Environmental.Temperature, Converter={StaticResource TemperatureConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-    </Grid>
+        </StackPanel>
+    </StackPanel>
 </UserControl>

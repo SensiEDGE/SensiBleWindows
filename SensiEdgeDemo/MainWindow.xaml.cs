@@ -1,66 +1,32 @@
-﻿using SensiEdge;
-using SensiEdge.Device;
-using SensiEdge.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FirstFloor.ModernUI.Windows.Controls;
+using SensiEdge;
+using SensiEdgeDemo.Pages;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SensiEdgeDemo.Domain;
-using System.Diagnostics;
-using MaterialDesignThemes.Wpf;
-using Windows.UI.Xaml.Controls.Primitives;
-using System.Threading;
 
 namespace SensiEdgeDemo
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Mui2MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : ModernWindow
     {
         public MainWindow()
         {
+            SettingsAppearanceViewModel settingsAppearance = new SettingsAppearanceViewModel();
             InitializeComponent();
-            var model = new MainWindowViewModel();
-            model.DeviceChanged += () => { DemoItemsListBox.SelectedIndex = 0; };
-            DataContext = model;
-            DemoItemsListBox.SelectionChanged += DemoItemsListBox_SelectionChanged;
         }
 
-        private void DemoItemsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(DemoItemsListBox.SelectedValue != null && DemoItemsListBox.SelectedValue is DemoItem)
-            {
-                PageName.Text = ((DemoItem)DemoItemsListBox.SelectedValue).Name;
-            }
+            Properties.Appearance.Default.Save();
+            Properties.AzureSettings.Default.Save();
+            Properties.AmazonSettings.Default.Save();
+            Properties.IBMWatsonsSettings.Default.Save();
         }
 
-        private void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ModernWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //until we had a StaysOpen glag to Drawer, this will help with scroll bars
-            var dependencyObject = Mouse.Captured as DependencyObject;
-            while (dependencyObject != null)
-            {
-                if (dependencyObject is ScrollBar) return;
-                dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
-            }
-
-            MenuToggleButton.IsChecked = false;
+            BleWatcher.StartWatch();
         }
     }
 }

@@ -4,7 +4,7 @@ using SensiEdge.Data;
 using SensiEdge.Device;
 using System;
 using System.ComponentModel;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Timers;
 using System.Windows.Controls;
@@ -43,10 +43,7 @@ namespace SensiEdgeDemo.Domain
         private ISource<Environmental> EnviromentalSource { get; set; }
         private ISource<LightSensor> LightSensorSource { get; set; }
         private ISource<AudioLevel> AudioLevelSource { get; set; }
-        private Timer SendTimer { get; set; }
-        private string Host { get; set; }
-        private string DeviceId { get; set; }
-        private string Password { get; set; }
+        private Timer SendTimer { get; set; }       
 
         public double Pressure { get; set; }
         public double Temperature { get; set; }
@@ -80,14 +77,7 @@ namespace SensiEdgeDemo.Domain
             set { this.MutateVerbose(ref cloudButtonContent, value, RaisePropertyChanged()); }
         }
 
-        public bool IsStarted { get; set; }
-
-        private Brush buttonBackground;
-        public Brush ButtonBackground
-        {
-            get { return buttonBackground; }
-            set { this.MutateVerbose(ref buttonBackground, value, RaisePropertyChanged()); }
-        }
+        public bool IsStarted { get; set; }             
 
         private string errorText;
         public string ErrorText
@@ -125,9 +115,9 @@ namespace SensiEdgeDemo.Domain
                 try
                 {
                     Message message = GetState(); 
-                    await deviceClient.SendEventAsync(message).ConfigureAwait(false);
+                    await deviceClient.SendEventAsync(message);
                 }
-                catch
+                catch(Exception ex)
                 {
                     ErrorText = "Error: Can't send data to cloud";
                     Stop();
@@ -159,13 +149,15 @@ namespace SensiEdgeDemo.Domain
         {
             try
             {
+                ErrorText = "";
                 deviceClient = DeviceClient.Create(Properties.AzureSettings.Default.Host,
                                 new DeviceAuthenticationWithRegistrySymmetricKey(Properties.AzureSettings.Default.DeviceId,
                                 Properties.AzureSettings.Default.AccessKey), TransportType.Mqtt);
+                SendTimer.Start();
+                CloudButtonContent = "Stop";
             }
-            catch { ErrorText = "Error: Can't create cloud client"; }
-            SendTimer.Start();
-            CloudButtonContent = "Stop";
+            catch { ErrorText = "Error: Can't create cloud client";  }
+            
         }
         private void Stop()
         {

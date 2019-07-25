@@ -19,7 +19,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <materialDesign:PackIcon Kind="Nfc" VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="200" />
+        <materialDesign:PackIcon Kind="Nfc" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="300" Width="auto" Height="auto"/>
         <TextBlock Grid.Row="1" Text="{Binding Proximity.Distance, Converter={StaticResource ProximityConverter}}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
     </Grid>
 </UserControl>

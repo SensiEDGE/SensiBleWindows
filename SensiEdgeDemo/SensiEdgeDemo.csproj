@@ -37,7 +37,13 @@
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.3.29.12\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Bogus, Version=23.0.3.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
       <HintPath>..\packages\Bogus.23.0.3\lib\net40\Bogus.dll</HintPath>
     </Reference>
@@ -59,11 +65,17 @@
     <Reference Include="DotNetty.Transport, Version=0.6.0.0, Culture=neutral, PublicKeyToken=bc13ca065fa06c29, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetty.Transport.0.6.0\lib\net45\DotNetty.Transport.dll</HintPath>
     </Reference>
+    <Reference Include="FirstFloor.ModernUI, Version=1.0.9.0, Culture=neutral, PublicKeyToken=bc9b0c37bf06c6a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+    </Reference>
     <Reference Include="HelixToolkit, Version=2.4.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
       <HintPath>..\packages\HelixToolkit.2.4.0\lib\netstandard1.1\HelixToolkit.dll</HintPath>
     </Reference>
     <Reference Include="HelixToolkit.Wpf, Version=2.4.0.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
       <HintPath>..\packages\HelixToolkit.Wpf.2.4.0\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="IBMWIoTP, Version=0.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IBMWIoTP.0.2.5.0\lib\net45\IBMWIoTP.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -73,6 +85,12 @@
     </Reference>
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -122,6 +140,9 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="ShowMeTheXAML, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ShowMeTheXAML.1.0.10\lib\net45\ShowMeTheXAML.dll</HintPath>
     </Reference>
@@ -146,6 +167,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
       <Private>True</Private>
@@ -243,6 +265,7 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -256,22 +279,20 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DirectWindowsWinmd.Net.10.0.15063.0\lib\net45\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -294,6 +315,7 @@
     <Compile Include="Demo\DemoSmokeSensor.cs" />
     <Compile Include="Demo\DemoUltraViolet.cs" />
     <Compile Include="Domain\AccGyroMagViewModel.cs" />
+    <Compile Include="Domain\AmazonCloudViewModel.cs" />
     <Compile Include="Domain\AudioLevelViewModel.cs" />
     <Compile Include="Domain\BatteryStatusViewModel.cs" />
     <Compile Include="Domain\CompassViewModel.cs" />
@@ -301,6 +323,7 @@
     <Compile Include="Domain\DemoItem.cs" />
     <Compile Include="Domain\EnviromentalViewModel.cs" />
     <Compile Include="Domain\FindDevicesViewModel.cs" />
+    <Compile Include="Domain\IBMWatsonsCloudViewModel.cs" />
     <Compile Include="Domain\LedStateViewModel.cs" />
     <Compile Include="Domain\LightSensorViewModel.cs" />
     <Compile Include="Domain\MainWindowViewModel.cs" />
@@ -310,10 +333,10 @@
     <Compile Include="Domain\SelectableViewModel.cs" />
     <Compile Include="Domain\SmokeSensorViewModel.cs" />
     <Compile Include="Domain\UltraVioletViewModel.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AccelerometerEventsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ActivityRecognitionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AmazonCloudView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -346,6 +373,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\DevicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\EnvironmentalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -358,9 +389,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Home.xaml">
+    <Page Include="Pages\IBMWatsonCloudView.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\LedStateView.xaml">
       <SubType>Designer</SubType>
@@ -378,6 +409,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SettingsAppearance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\SmokeSensorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -392,6 +427,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AccelerometerEventsView.xaml.cs">
       <DependentUpon>AccelerometerEventsView.xaml</DependentUpon>
     </Compile>
@@ -400,6 +438,9 @@
     </Compile>
     <Compile Include="Pages\ActivityRecognitionView.xaml.cs">
       <DependentUpon>ActivityRecognitionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AmazonCloudView.xaml.cs">
+      <DependentUpon>AmazonCloudView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AudioLevelView.xaml.cs">
       <DependentUpon>AudioLevelView.xaml</DependentUpon>
@@ -416,6 +457,9 @@
     <Compile Include="Pages\AzureCloudView.xaml.cs">
       <DependentUpon>AzureCloudView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DevicesView.xaml.cs">
+      <DependentUpon>DevicesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\EnvironmentalView.xaml.cs">
       <DependentUpon>EnvironmentalView.xaml</DependentUpon>
     </Compile>
@@ -425,8 +469,8 @@
     <Compile Include="Pages\GestureRecognitionView.xaml.cs">
       <DependentUpon>GestureRecognitionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
+    <Compile Include="Pages\IBMWatsonCloudView.xaml.cs">
+      <DependentUpon>IBMWatsonCloudView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LedStateView.xaml.cs">
       <DependentUpon>LedStateView.xaml</DependentUpon>
@@ -440,6 +484,10 @@
     <Compile Include="Pages\OrientationView.xaml.cs">
       <DependentUpon>OrientationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SettingsAppearance.xaml.cs">
+      <DependentUpon>SettingsAppearance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingsAppearanceViewModel.cs" />
     <Compile Include="Pages\SmokeSensorView.xaml.cs">
       <DependentUpon>SmokeSensorView.xaml</DependentUpon>
     </Compile>
@@ -450,6 +498,16 @@
       <DependentUpon>ProximityView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\RubikCube.cs" />
+    <Compile Include="Properties\AmazonSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>AmazonSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Appearance.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Appearance.settings</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -457,6 +515,16 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>AzureSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\ConnectedDevice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ConnectedDevice.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\IBMWatsonsSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>IBMWatsonsSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -468,9 +536,25 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\AmazonSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>AmazonSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Appearance.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Appearance.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\AzureSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>AzureSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\ConnectedDevice.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ConnectedDevice.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\IBMWatsonsSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>IBMWatsonsSettings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
